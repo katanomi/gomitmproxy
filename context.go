@@ -41,8 +41,8 @@ type Context struct {
 	props map[string]interface{}
 }
 
-// newContext creates a new Context instance.
-func newContext(conn net.Conn, localRW *bufio.ReadWriter, parent *Session) (ctx *Context) {
+// NewContext creates a new Context instance.
+func NewContext(conn net.Conn, localRW *bufio.ReadWriter, parent *Session) (ctx *Context) {
 	var contextID int64
 	if parent == nil {
 		contextID = atomic.AddInt64(&currentContextID, 1)
@@ -130,8 +130,8 @@ type Session struct {
 	props map[string]interface{}
 }
 
-// newSession creates a new Session instance.
-func newSession(ctx *Context, req *http.Request) (sess *Session) {
+// NewSession creates a new Session instance.
+func NewSession(ctx *Context, req *http.Request) (sess *Session) {
 	sessionID := atomic.AddInt64(&ctx.lastSessionID, 1)
 
 	return &Session{
